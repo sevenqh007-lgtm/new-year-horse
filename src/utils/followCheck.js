@@ -56,7 +56,7 @@ export const generateFollowLink = () => {
     const userId = localStorage.getItem('ny_user_id') || generateUserId()
     // 公众号关注链接（需替换为实际链接）
     // 场景值：从H5关注后返回
-    return `https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=你的公众号ID==&scene=126#wechat_redirect`
+    return `https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=A_java007==&scene=126#wechat_redirect`
 }
 
 const generateUserId = () => {
