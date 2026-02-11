@@ -67,7 +67,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { getMarketingCopy, generateFollowLink, markAsFollowed } from '../utils/followCheck'
+import { getMarketingCopy, openFollowPage, markAsFollowed, checkReturnFromFollow } from '../utils/followCheck'
 
 const props = defineProps({
   show: Boolean,
@@ -83,11 +83,9 @@ const handleMainAction = () => {
   if (props.isFollowed) {
     emit('use')
   } else {
-    // 记录点击时间
-    localStorage.setItem('ny_follow_click', Date.now())
     emit('follow')
     // 打开关注页面
-    window.location.href = generateFollowLink()
+    openFollowPage()
   }
 }
 

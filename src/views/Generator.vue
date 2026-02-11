@@ -165,7 +165,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { checkFollowStatus } from '../utils/followCheck'
+import { checkFollowStatus, openFollowPage, checkReturnFromFollow, markAsFollowed } from '../utils/followCheck'
 
 const router = useRouter()
 const step = ref(1)
@@ -207,10 +207,21 @@ onMounted(async () => {
   isUnlimited.value = await checkFollowStatus()
   quota.value = parseInt(localStorage.getItem('ny_quota') || '2')
 
-  // 检查是否已看过强制关注弹窗
-  const hasSeenFollowModal = localStorage.getItem('ny_seen_follow_modal')
-  if (!isUnlimited.value && !hasSeenFollowModal) {
-    showForceFollow.value = true
+  // 检查是否从关注页面返回
+  if (checkReturnFromFollow()) {
+    // 用户从关注页面返回，自动标记为已关注
+    markAsFollowed()
+    isUnlimited.value = true
+    showForceFollow.value = false
+    // 清除点击记录
+    localStorage.removeItem('ny_follow_click')
+    alert('🎉 关注成功！已获得无限使用权限')
+  } else {
+    // 检查是否已看过强制关注弹窗
+    const hasSeenFollowModal = localStorage.getItem('ny_seen_follow_modal')
+    if (!isUnlimited.value && !hasSeenFollowModal) {
+      showForceFollow.value = true
+    }
   }
 })
 
@@ -221,10 +232,7 @@ const handleForceFollowClick = () => {
 }
 
 const handleForceFollow = () => {
-  const userId = 'user_' + Date.now()
-  localStorage.setItem('ny_user_id', userId)
-  localStorage.setItem('ny_follow_click', Date.now())
-  window.location.href = `https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=你的公众号ID==&scene=126#wechat_redirect`
+  openFollowPage()
 }
 
 const triggerUpload = () => fileInput.value.click()

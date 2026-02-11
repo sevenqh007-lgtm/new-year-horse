@@ -4,7 +4,6 @@
  */
 
 const FOLLOW_KEY = 'ny_follow_status'
-const CHECK_COUNT = 'ny_check_count'
 
 // 模拟检测（实际应调用微信API或后端验证）
 export const checkFollowStatus = async () => {
@@ -53,10 +52,43 @@ export const getMarketingCopy = (isFollowed) => {
 
 // 生成带参数的关注链接（用于追踪）
 export const generateFollowLink = () => {
+    // 确保有用户ID
     const userId = localStorage.getItem('ny_user_id') || generateUserId()
-    // 公众号关注链接（需替换为实际链接）
+    // 公众号关注链接（需替换为实际的公众号ID）
     // 场景值：从H5关注后返回
-    return `https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=A_java007==&scene=126#wechat_redirect`
+    return `https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=gh_d8c2ff4637f8==&scene=126#wechat_redirect`
+}
+
+// 在微信中打开关注页面
+export const openFollowPage = () => {
+    const followUrl = generateFollowLink()
+    
+    // 记录点击时间，用于返回后检测
+    localStorage.setItem('ny_follow_click', Date.now())
+    
+    // 判断是否在微
+    const isWechat = /MicroMessenger/i.test(navigator.userAgent)
+    
+    if (isWechat) {
+        // 在微信中使用location.href跳转
+        window.location.href = followUrl
+    } else {
+        // 非微信环境，打开新窗口
+        window.open(followUrl, '_blank')
+    }
+}
+
+// 检测是否从关注页面返回
+export const checkReturnFromFollow = () => {
+    const followClickTime = localStorage.getItem('ny_follow_click')
+    if (followClickTime) {
+        const timeDiff = Date.now() - parseInt(followClickTime)
+        // 如果在5分钟内返回，认为是关注后返回
+        if (timeDiff < 5 * 60 * 1000) {
+            return true
+        }
+    }
+    return false
 }
 
 const generateUserId = () => {
