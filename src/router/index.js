@@ -12,6 +12,11 @@ const routes = [
     component: () => import('../views/Horoscope.vue')
   },
   {
+    path: '/redpacket',
+    name: 'RedPacketCover',
+    component: () => import('../views/RedPacketCover.vue')
+  },
+  {
     path: '/blessing',
     name: 'Blessing',
     component: () => import('../views/Blessing.vue')
