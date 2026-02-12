@@ -416,6 +416,7 @@ const genProgress = ref(0)
 const resultImage = ref('')
 const history = ref([])
 const showHistory = ref(false)
+const quota = ref(0) // 配额
 
 // 方法
 const triggerUpload = () => fileInput.value.click()
@@ -591,7 +592,7 @@ const composeImage = () => {
     // 绘制年份
     ctx.font = 'bold 80px serif'
     ctx.fillStyle = 'rgba(255, 215, 0, 0.3)'
-    ctx.fillText('2025', 540, 1780)
+    ctx.fillText('2026', 540, 1780)
 
     resultImage.value = cvs.toDataURL('image/jpeg', 0.95)
     

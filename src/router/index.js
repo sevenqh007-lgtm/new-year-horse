@@ -7,6 +7,11 @@ const routes = [
     component: () => import('../views/Home.vue')
   },
   {
+    path: '/horoscope',
+    name: 'Horoscope',
+    component: () => import('../views/Horoscope.vue')
+  },
+  {
     path: '/blessing',
     name: 'Blessing',
     component: () => import('../views/Blessing.vue')
@@ -20,6 +25,11 @@ const routes = [
     path: '/generator',
     name: 'Generator',
     component: () => import('../views/Generator.vue')
+  },
+  {
+    path: '/auth-callback',
+    name: 'AuthCallback',
+    component: () => import('../views/AuthCallback.vue')
   }
 ]
 

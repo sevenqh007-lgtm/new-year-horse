@@ -9,8 +9,10 @@ id = "2fa5a9f731ee442b95575369c556f776"
 
 # 环境变量
 [vars]
-FRONTEND_URL = "https://62d0b022.new-year-horse.pages.dev"
+FRONTEND_URL = "https://b0282f43.new-year-horse.pages.dev"
+WECHAT_TOKEN = "nyhorse2025"
+WECHAT_AES_KEY = "c7Fx0oM35yh6zMoEYtpOEXr3Pyf9nnjMqlJfoOwmTZo"
 
-# Secrets (通过 wrangler secret put 设置):
-# WECHAT_APPID - 微信公众号APPID
-# WECHAT_SECRET - 微信公众号密钥
+# Secrets (已设置):
+# WECHAT_APPID - wxc3c469686533ab55
+# WECHAT_SECRET - 734611ff684144a5375a59eae3eaeab0
