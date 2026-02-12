@@ -91,7 +91,7 @@ const userCount = ref(8234)
 const features = [
   { id: 1, name: '领取祝福', icon: '🧧', desc: '马年吉祥话', path: '/blessing', needFollow: false },
   { id: 2, name: '在线烟花', icon: '🎆', desc: '许愿放烟花', path: '/firework', needFollow: false },
-  { id: 3, name: 'AI拜年生成', icon: '📸', desc: '上传照片生成', path: '/generator', needFollow: true, hot: true },
+  { id: 3, name: 'AI拜年生成', icon: '📸', desc: '上传照片生成', path: '/generator', needFollow: false, hot: true },
   { id: 4, name: '分享好友', icon: '📤', desc: '邀请好友', path: '/share', needFollow: false }
 ]
 
@@ -127,10 +127,7 @@ onMounted(async () => {
 })
 
 const handleFeatureClick = (feature) => {
-  if (feature.needFollow && !isFollowed.value) {
-    showFollowModal.value = true
-    return
-  }
+  // 强制关注已关闭，所有功能都可以直接使用
   if (feature.path) {
     router.push(feature.path)
   }

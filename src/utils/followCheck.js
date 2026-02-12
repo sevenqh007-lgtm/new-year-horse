@@ -5,20 +5,55 @@
 
 const FOLLOW_KEY = 'ny_follow_status'
 
-// 模拟检测（实际应调用微信API或后端验证）
-export const checkFollowStatus = async () => {
-    // 方案1：本地存储（演示用，实际不安全）
-    // return localStorage.getItem(FOLLOW_KEY) === 'true'
+// API 基础地址
+const API_BASE = 'https://new-year-horse-api.sevenqh007.workers.dev'
 
-    // 方案2：后端验证（推荐）
+// 检测关注状态
+export const checkFollowStatus = async () => {
+    // 方案2: 后端API验证
+    const userId = localStorage.getItem('ny_user_id')
+    if (!userId) {
+        return false
+    }
+    
     try {
-        const userId = localStorage.getItem('ny_user_id')
-        const response = await fetch(`https://你的worker地址/api/check-follow?userId=${userId}`)
+        const response = await fetch(`${API_BASE}/api/check-follow?userId=${userId}`)
         const data = await response.json()
+        
+        // 更新本地状态
+        if (data.isFollowed) {
+            localStorage.setItem(FOLLOW_KEY, 'true')
+            localStorage.setItem('ny_quota', '9999')
+        }
+        
         return data.isFollowed
     } catch (e) {
-        // 离线模式默认未关注
-        return false
+        console.error('Check follow status failed:', e)
+        // 失败时回退到本地存储
+        return localStorage.getItem(FOLLOW_KEY) === 'true'
+    }
+}
+
+// 微信OAuth授权检查
+export const wechatAuth = () => {
+    const userId = localStorage.getItem('ny_user_id') || generateUserId()
+    localStorage.setItem('ny_user_id', userId)
+    
+    // 跳转到 Worker 授权接口
+    window.location.href = `${API_BASE}/api/wechat-auth?userId=${userId}`
+}
+
+// 获取用户信息
+export const getUserInfo = async () => {
+    const userId = localStorage.getItem('ny_user_id')
+    if (!userId) return null
+    
+    try {
+        const response = await fetch(`${API_BASE}/api/user-info?userId=${userId}`)
+        return await response.json()
+    } catch (e) {
+        console.error('Get user info failed:', e)
+        return null
     }
 }
 

@@ -1,0 +1,16 @@
+name = "new-year-horse-api"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# KV Namespace 绑定
+[[kv_namespaces]]
+binding = "FOLLOW_STATUS"
+id = "2fa5a9f731ee442b95575369c556f776"
+
+# 环境变量
+[vars]
+FRONTEND_URL = "https://62d0b022.new-year-horse.pages.dev"
+
+# Secrets (通过 wrangler secret put 设置):
+# WECHAT_APPID - 微信公众号APPID
+# WECHAT_SECRET - 微信公众号密钥
