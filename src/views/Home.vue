@@ -118,11 +118,12 @@ const userCount = ref(8234)
 let stopPolling = null
 
 const features = [
-  { id: 1, name: '🧧 红包封面', icon: '🎁', desc: '免费领取马年限定', path: '/redpacket', needFollow: false, hot: true, featured: true },
-  { id: 2, name: '🔮 运势测试', icon: '🐴', desc: '测测你的马年运势', path: '/horoscope', needFollow: false },
+  { id: 1, name: '🎨 马年头像框', icon: '🐴', desc: '专属头像框', path: '/avatar', needFollow: false, hot: true, featured: true },
+  { id: 2, name: '🔮 运势测试', icon: '🔮', desc: '测测你的马年运势', path: '/horoscope', needFollow: false },
   { id: 3, name: 'AI拜年生成', icon: '📸', desc: '上传照片生成', path: '/generator', needFollow: false },
-  { id: 4, name: '在线烟花', icon: '🎆', desc: '许愿放烟花', path: '/firework', needFollow: false },
-  { id: 5, name: '领取祝福', icon: '🧧', desc: '马年吉祥话', path: '/blessing', needFollow: false }
+  { id: 4, name: '🧧 红包封面', icon: '🎁', desc: '马年限定红包', path: '/redpacket', needFollow: false },
+  { id: 5, name: '在线烟花', icon: '🎆', desc: '许愿放烟花', path: '/firework', needFollow: false },
+  { id: 6, name: '领取祝福', icon: '🧧', desc: '马年吉祥话', path: '/blessing', needFollow: false }
 ]
 
 const stats = ref({
